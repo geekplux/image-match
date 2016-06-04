@@ -4,13 +4,15 @@
   </head>
   <body>
     <h1>Test</h1>
-    <div class="input-wrap">
-      <input id="fileInput1" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" name="file" />
+    <div class="file-input-wrap">
+      <input id="fileInput1" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
       <label for="fileInput1">Choose a file</label>
+      <img />
     </div>
-    <div class="input-wrap">
-      <input id="fileInput2" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" name="file" />
+    <div class="file-input-wrap">
+      <input id="fileInput2" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
       <label for="fileInput2">Choose a file</label>
+      <img />
     </div>
   </body>
 
@@ -43,4 +45,20 @@
      background-color: #286090;
    }
   </style>
+
+  <script>
+   (function() {
+     var inputWraps = document.querySelectorAll('.file-input-wrap');
+     for (var i = 0, len = inputWraps.length; i < len; ++i) {
+       var inputWrap = inputWraps[i];
+       (function (_inputWrap) {
+         var fileInput = _inputWrap.querySelector('.file-input');
+         fileInput.onchange = (function (event) {
+           var preview = _inputWrap.querySelector('img');
+           preview.src = URL.createObjectURL(event.target.files[0]);
+         });
+       })(inputWrap);
+     }
+   })();
+  </script>
 </html>
