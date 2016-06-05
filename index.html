@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Test</title>
+  </head>
+  <body>
+    <h1>Test</h1>
+    <div class="input-wrap">
+      <input id="fileInput1" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" name="file" />
+      <label for="fileInput1">Choose a file</label>
+    </div>
+    <div class="input-wrap">
+      <input id="fileInput2" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" name="file" />
+      <label for="fileInput2">Choose a file</label>
+    </div>
+  </body>
+
+  <style>
+   body {
+     background-color: #efefef;
+   }
+
+   .file-input {
+     width: 0.1px;
+     height: 0.1px;
+     opacity: 0;
+     overflow: hidden;
+     position: absolute;
+     z-index: -1;
+   }
+
+   .file-input + label {
+     display: inline-block;
+     padding: 10px 20px;
+     font-size: 1.25em;
+     font-weight: 400;
+     color: #eee;
+     background-color: #337ab7;
+     cursor: pointer;
+   }
+
+   .file-input:focus + label,
+   .file-input + label:hover {
+     background-color: #286090;
+   }
+  </style>
+</html>
