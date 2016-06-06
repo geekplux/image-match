@@ -8,14 +8,14 @@
       <input id="fileInput1" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
       <label for="fileInput1">Choose a file</label>
       <div class="preview-wrap">
-        <img />
+        <img id="preview1" />
       </div>
     </div>
     <div class="file-input-wrap">
       <input id="fileInput2" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
       <label for="fileInput2">Choose a file</label>
       <div class="preview-wrap">
-        <img />
+        <img id="preview2" />
       </div>
     </div>
     <button class="btn btn-action">action</button>
@@ -92,10 +92,9 @@
 
      var btnAction = document.querySelector('.btn-action');
      btnAction.onclick = function () {
-       var img1 = document.getElementById('fileInput1').files[0];
-       var img2 = document.getElementById('fileInput2').files[0];
-       var similarity = imgMatch.compare(img1, img2);
-       console.log(similarity);
+       var img1 = document.getElementById('preview1');
+       var img2 = document.getElementById('preview2');
+       var similarity = imgMatch.compare(img1.src, img2.src);
      };
    })();
   </script>
