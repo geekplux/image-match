@@ -18,6 +18,7 @@
         <img />
       </div>
     </div>
+    <button class="btn btn-action">action</button>
   </body>
 
   <style>
@@ -88,6 +89,15 @@
          });
        })(inputWrap);
      }
+
+     var btnAction = document.querySelector('.btn-action');
+     btnAction.onclick = function () {
+       var img1 = document.getElementById('fileInput1').files[0];
+       var img2 = document.getElementById('fileInput2').files[0];
+       var similarity = imgMatch.compare(img1, img2);
+       console.log(similarity);
+     };
    })();
   </script>
+  <script src="./index.js"></script>
 </html>
