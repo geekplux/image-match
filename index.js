@@ -12,9 +12,25 @@
 
   var imgMatch = {};
 
-  imgMatch.compare = function (img1, img2) {
-    var imgData = getImgData(img1);
-    console.log(imgData);
+  /**
+   * matching the pair of image
+   * @param {String} templateImg the template image
+   * @param {String} matchImg image await matching
+   * @returns {}
+   */
+  imgMatch.compare = function (templateImg, matchImg) {
+    var templateImgData, matchImgData;
+    getImgData(templateImg, function (data) {
+      templateImgData = getGrayArr(data);
+    });
+    getImgData(matchImg, function (data) {
+      matchImgData = getGrayArr(data);
+    });
+
+    setTimeout(function () {
+      console.log(templateImgData);
+      console.log(matchImgData);
+    }, 0);
 
     var similarity = 1;
     return similarity;
@@ -26,53 +42,59 @@
    * @param {String} src image url
    * @returns {Object}
    */
-  function getImageData(src) {
-    var canvas = drawImage(src);
-    var ctx = canvas.getContext('2d');
-    var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    return imgData;
+  function getImgData(src, callback) {
+    var img = drawImg(src, function (canvas) {
+      var ctx = canvas.getContext('2d');
+      var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      callback(imgData);
+      return imgData;
+    });
+    return img;
   }
 
 
   /**
-   *
+   * transform the image to a canvas object.
    * @param {String} src image url
-   * @returns {Object} canvas object
+   * @returns {Object}
    */
-  function drawImage (src) {
+  function drawImg (src, callback) {
     var img = new Image();
-    var canvas = document.createElement('canvas');
     img.onload = function() {
+      var canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
       canvas.getContext('2d').drawImage(img, 0, 0);
+
+      callback(canvas);
+      return canvas;
     };
 
     img.src = src;
-    return canvas;
+    return img;
   }
 
 
   /**
-   * refactor the image data to a RGB array.
+   * return a gray array according to RGB value in image data.
    * @param {Object} imgData canvas getImageData's result
-   * @returns {Array} a RGB array
+   * @returns {Array} grayArr the Gray value array
    */
-  function refactorRGB (imgData) {
+  function getGrayArr (imgData) {
     var data = imgData.data;
     var width = imgData.width;
     var height = imgData.height;
-    var rgbArr = [];
+    var grayArr = [];
     for (h = 0; h < height; h += 12) {
       for (w = 0; w < width; w += 6) {
         var index = (w + width * h) * 4;
-        var r = imgDataArr[index + 0];
-        var g = imgDataArr[index + 1];
-        var b = imgDataArr[index + 2];
-        rgbArr.push({r: r, g: g, b: b});
+        var r = data[index + 0];
+        var g = data[index + 1];
+        var b = data[index + 2];
+        grayArr.push(calculateGray(r, g, b));
       }
     }
-    return rgbArr;
+    return grayArr;
   }
 
 
