@@ -1,41 +1,66 @@
 <html>
   <head>
-    <title>Test</title>
+    <title>Image Matching Test</title>
   </head>
   <body>
-    <h1>Test</h1>
-    <div class="file-input-wrap">
-      <input id="fileInput1" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
-      <label for="fileInput1">Choose a file</label>
-      <div class="preview-wrap">
-        <img id="preview1" />
+    <h1 class="title">Image Matching Test</h1>
+    <div class="container">
+      <div class="file-input-wrap">
+        <input id="fileInput1" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
+        <label for="fileInput1">Choose a file</label>
+        <div class="preview-wrap">
+          <img id="preview1" />
+        </div>
       </div>
-    </div>
-    <div class="file-input-wrap">
-      <input id="fileInput2" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
-      <label for="fileInput2">Choose a file</label>
-      <div class="preview-wrap">
-        <img id="preview2" />
+      <div class="file-input-wrap">
+        <input id="fileInput2" class="file-input" type="file" accept="image/png,image/gif,image/jpeg" />
+        <label for="fileInput2">Choose a file</label>
+        <div class="preview-wrap">
+          <img id="preview2" />
+        </div>
       </div>
     </div>
     <button class="btn btn-action">action</button>
+    <p id="result" class="result"></p>
   </body>
 
   <style>
    body {
-     background-color: #efefef;
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+     -moz-font-feature-settings: "liga" on;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+   }
+
+   h1.title {
+     padding: 20px 0;
+     font-weight: lighter;
+   }
+
+   .container {
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
    }
 
    .file-input-wrap {
      display: inline-block;
-     width: 40%;
+     width: 30%;
+     padding: 0 40px;
+     text-align: center;
    }
 
    .preview-wrap {
      position: relative;
-     margin-top: 30px;
-     width: 400px;
-     height: 400px;
+     margin: 40px auto 0 auto;
+     width: 100%;
+     height: 50%;
+     max-width: 300px;
+     max-height: 300px;
      border: 3px dashed #ccc;
    }
 
@@ -45,8 +70,9 @@
      bottom: 0;
      left: 0;
      right: 0;
-     max-width: 400px;
-     max-height: 400px;
+     border: 0;
+     max-width: 100%;
+     max-height: 100%;
    }
 
 
@@ -61,10 +87,10 @@
 
    .file-input + label {
      display: inline-block;
-     padding: 10px 20px;
+     padding: 5px 20px;
      font-size: 1.25em;
-     font-weight: 400;
-     color: #eee;
+     font-weight: 200;
+     color: white;
      background-color: #337ab7;
      border-radius: 4px;
      cursor: pointer;
@@ -74,6 +100,28 @@
    .file-input + label:hover {
      background-color: #286090;
    }
+
+   .btn-action {
+     outline: none;
+     margin: 40px 0 20px 0;
+     padding: 5px 20px;
+     font-size: 1.25em;
+     font-weight: 200;
+     color: white;
+     border: 0;
+     border-radius: 4px;
+     background-color: #337ab7;
+     cursor: pointer;
+   }
+   .btn-action:hover {
+     background-color: #286090;
+   }
+
+   .result {
+     font-size: 1.5em;
+     font-weight: 200;
+   }
+
   </style>
 
   <script>
@@ -99,7 +147,7 @@
        var img1 = document.getElementById('preview1');
        var img2 = document.getElementById('preview2');
        var similarity = imgMatch.compare(img1.src, img2.src, function (similarity) {
-         console.log(similarity);
+         document.getElementById('result').innerHTML = 'SAD: ' + similarity;
        });
      };
    })();
