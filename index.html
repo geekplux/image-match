@@ -98,7 +98,9 @@
      btnAction.onclick = function () {
        var img1 = document.getElementById('preview1');
        var img2 = document.getElementById('preview2');
-       var similarity = imgMatch.compare(img1.src, img2.src);
+       var similarity = imgMatch.compare(img1.src, img2.src, function (similarity) {
+         console.log(similarity);
+       });
      };
    })();
   </script>

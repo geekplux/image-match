@@ -18,7 +18,7 @@
    * @param {String} matchImg image await matching
    * @returns {}
    */
-  imgMatch.compare = function (templateImg, matchImg) {
+  imgMatch.compare = function (templateImg, matchImg, callback) {
     var templateImgData, matchImgData;
     getImgData(templateImg, function (data) {
       templateImgData = getGrayArr(data);
@@ -27,12 +27,17 @@
       matchImgData = getGrayArr(data);
     });
 
+    var similarity = 0;
     setTimeout(function () {
-      console.log(templateImgData);
-      console.log(matchImgData);
+      for (var t = 0, tLen = templateImgData.length; t < tLen; ++t) {
+        for (var m = 0, mLen = matchImgData.length; m < mLen; ++m) {
+          similarity += (templateImgData[t] - matchImgData[m]);
+        }
+      }
+      callback(similarity);
+      return similarity;
     }, 0);
 
-    var similarity = 1;
     return similarity;
   };
 
