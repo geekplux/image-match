@@ -22,19 +22,39 @@
     var templateImgData, matchImgData;
     getImgData(templateImg, function (data) {
       templateImgData = getGrayArr(data);
+
+      // output
+      console.log('templateImgData: ');
+      console.log(templateImgData);
+
     });
     getImgData(matchImg, function (data) {
       matchImgData = getGrayArr(data);
+
+      // output
+      console.log('matchImgData: ');
+      console.log(matchImgData);
+
     });
 
     var similarity = 0;
     setTimeout(function () {
+
+      // SAD
       for (var t = 0, tLen = templateImgData.length; t < tLen; ++t) {
-        for (var m = 0, mLen = matchImgData.length; m < mLen; ++m) {
-          similarity += (templateImgData[t] - matchImgData[m]);
-        }
+        if (!matchImgData[t]) { console.log(matchImgData[t]); break; }
+        similarity += Math.abs(templateImgData[t] - matchImgData[t]);
       }
+
+      // SSD
+      // for (var t = 0, tLen = templateImgData.length; t < tLen; ++t) {
+      //   if (!matchImgData[t]) { console.log(matchImgData[t]); break; }
+      //   similarity += Math.sqrt((templateImgData[t] - matchImgData[t]), 2);
+      // }
+
+
       callback(similarity);
+
       return similarity;
     }, 0);
 
@@ -105,6 +125,11 @@
 
   function calculateGray(r, g, b) {
     return 0.299 * r + 0.578 * g + 0.114 * b;
+  }
+
+  // TODO
+  function calculateColor(r, g, b) {
+    // return U V
   }
 
   return imgMatch;
