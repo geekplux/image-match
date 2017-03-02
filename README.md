@@ -9,6 +9,10 @@ Compare different images pixel by pixel.
 
 [http://geekplux.github.io/image-match](http://geekplux.github.io/image-match)
 
+## Preview
+
+![](./example/preview.png)
+
 ## Installation
 
     $ npm install image-match
